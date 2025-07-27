@@ -46,7 +46,7 @@
 
       <style>
           :root {
-              /* Farbschema */
+              /* Dark Theme (Standard) */
               --background-dark: #2B2E3B;
               --background-darker: #252830;
               --card-background: #343845;
@@ -79,6 +79,22 @@
 
               /* Typografie */
               --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+          }
+
+          /* Light Theme */
+          [data-theme="light"] {
+              --background-dark: #f8fafc;
+              --background-darker: #f1f5f9;
+              --card-background: #ffffff;
+              --accent-blue: #3b82f6;
+              --accent-green: #10b981;
+              --accent-red: #ef4444;
+              --text-primary: #1f2937;
+              --text-secondary: #6b7280;
+              
+              --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+              --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+              --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
           }
 
           * {
@@ -463,8 +479,8 @@
           }
 
           .eq-slider {
-              writing-mode: bt-lr;
-              -webkit-appearance: slider-vertical;
+              writing-mode: vertical-lr;
+              direction: rtl;
               width: 100%;
               height: 120px;
               background: var(--background-darker);
@@ -730,7 +746,12 @@
   </head>
   <body>
       <header class="header">
-          <h1>🎛️  Yamaha RX-V577 Controller</h1>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-4);">
+              <h1 style="margin: 0;">🎛️  Yamaha RX-V577 Controller</h1>
+              <button id="theme-toggle" class="btn btn-outline btn-sm" style="border: none; background: rgba(255,255,255,0.1); color: var(--text-primary);">
+                  🌙
+              </button>
+          </div>
           <div class="card" id="connection-card">
               <div style="display: flex; justify-content: space-between; align-items: center;">
                   <h3 style="margin: 0; font-size: 1rem;">Verbindung</h3>
@@ -1144,9 +1165,15 @@
                   this.currentZone = 'Main_Zone';
                   this.connected = false;
                   this.statusInterval = null;
+                  this.isLocked = false; // Start unlocked, lock only after successful connection
+                  this.heartHoldTimer = null;
+                  this.heartHoldStartTime = null;
+                  this.permanentErrorTimer = null;
+                  this.currentTheme = localStorage.getItem('theme') || 'dark';
                   this.initializeElements();
                   this.attachEventListeners();
                   this.loadSavedIP();
+                  this.initializeTheme();
               }
 
               initializeElements() {
@@ -1230,8 +1257,21 @@
                       tabContents: document.querySelectorAll('.tab-content'),
                       tabs: document.querySelectorAll('.tab'),
                       inputBtns: document.querySelectorAll('[data-input]'),
-                      sceneBtns: document.querySelectorAll('[data-scene]')
+                      sceneBtns: document.querySelectorAll('[data-scene]'),
+                      
+                      // Heart unlock button
+                      heartUnlock: document.getElementById('heart-unlock'),
+                      lockStatus: document.getElementById('lock-status'),
+                      
+                      // Theme toggle
+                      themeToggle: document.getElementById('theme-toggle')
                   };
+                  
+                  // Debug: Check if heart element exists
+                  console.log('Heart unlock element found:', !!this.elements.heartUnlock);
+                  if (this.elements.heartUnlock) {
+                      console.log('Heart element:', this.elements.heartUnlock);
+                  }
               }
 
               attachEventListeners() {
@@ -1355,7 +1395,52 @@
                   this.elements.vpsToggle.addEventListener('click', () => this.toggleVPS());
                   this.elements.sleepTimer.addEventListener('change', (e) => this.setSleepTimer(e.target.value));
 
-                  // Presets
+                  // Heart unlock functionality - with null check
+                  if (this.elements.heartUnlock) {
+                      console.log('Adding event listeners to heart element');
+                      
+                      this.elements.heartUnlock.addEventListener('mousedown', (e) => {
+                          console.log('Mouse down on heart');
+                          this.startHeartHold(e);
+                      });
+                      this.elements.heartUnlock.addEventListener('mouseup', (e) => {
+                          console.log('Mouse up on heart');
+                          this.endHeartHold();
+                      });
+                      this.elements.heartUnlock.addEventListener('mouseleave', (e) => {
+                          console.log('Mouse leave heart');
+                          this.endHeartHold();
+                      });
+                      this.elements.heartUnlock.addEventListener('touchstart', (e) => {
+                          console.log('Touch start on heart');
+                          e.preventDefault();
+                          this.startHeartHold(e);
+                      });
+                      this.elements.heartUnlock.addEventListener('touchend', (e) => {
+                          console.log('Touch end on heart');
+                          e.preventDefault();
+                          this.endHeartHold();
+                      });
+                      this.elements.heartUnlock.addEventListener('touchcancel', (e) => {
+                          console.log('Touch cancel on heart');
+                          e.preventDefault();
+                          this.endHeartHold();
+                      });
+                      this.elements.heartUnlock.addEventListener('click', (e) => {
+                          console.log('Click on heart, isLocked:', this.isLocked);
+                          e.preventDefault();
+                      });
+                      
+                      // Prevent context menu
+                      this.elements.heartUnlock.addEventListener('contextmenu', (e) => e.preventDefault());
+                  } else {
+                      console.error('Heart unlock element not found!');
+                  }
+                  
+                  // Theme toggle
+                  if (this.elements.themeToggle) {
+                      this.elements.themeToggle.addEventListener('click', () => this.toggleTheme());
+                  }
               }
 
               async loadSavedIP() {
@@ -1404,19 +1489,28 @@
                       await this.setReceiverIP(ip);
                       await this.getStatus(true);
 
+                      // Connection successful
                       this.connected = true;
                       this.elements.connectionStatus.className = 'status-indicator status-connected';
                       this.elements.connectionStatus.textContent = 'Verbunden';
 
+                      // Show GUI immediately on successful connection
                       this.elements.stats.style.display = 'grid';
                       this.elements.mainTabs.style.display = 'flex';
                       this.elements.zoneTabs.style.display = 'flex';
                       this.elements.controls.style.display = 'block';
 
+                      // Now lock the GUI for controls
+                      this.isLocked = true;
+                      this.updateLockStatus();
                       this.showMessage('Erfolgreich verbunden', 'success');
                       this.startStatusPolling();
+                      
+                      // Clear any permanent error
+                      this.clearPermanentError();
 
                   } catch (error) {
+                      // Connection failed
                       this.connected = false;
                       this.elements.connectionStatus.className = 'status-indicator status-disconnected';
                       this.elements.connectionStatus.textContent = 'Verbindung fehlgeschlagen';
@@ -1426,7 +1520,8 @@
                       this.elements.zoneTabs.style.display = 'none';
                       this.elements.controls.style.display = 'none';
 
-                      this.showMessage('Verbindung fehlgeschlagen: ' + error.message, 'error');
+                      // Show permanent error message for wrong IP
+                      this.showPermanentError();
                   } finally {
                       this.elements.connectBtn.disabled = false;
                       this.elements.connectBtn.innerHTML = '<span>Verbinden</span>';
@@ -1555,6 +1650,8 @@
               }
 
               adjustVolume(change) {
+                  if (this.checkIfLocked()) return;
+                  
                   // Get current volume from display (which shows the true volume)
                   const current = parseFloat(this.elements.currentVolume.textContent);
                   const newVal = Math.max(-80, Math.min(16, current + change));
@@ -1570,6 +1667,8 @@
               }
 
               async togglePower() {
+                  if (this.checkIfLocked()) return;
+                  
                   const isOn = this.elements.powerBtn.classList.contains('on');
                   const newState = isOn ? 'Standby' : 'On';
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Power_Control><Power>${newState}</Power></Power_Control></${this.currentZone}></YAMAHA_AV>`;
@@ -1584,6 +1683,8 @@
               }
 
               async setVolume(value) {
+                  if (this.checkIfLocked()) return;
+                  
                   const volValue = Math.round(value * 10);
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Volume><Lvl><Val>${volValue}</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Volume></${this.currentZone}></YAMAHA_AV>`;
 
@@ -1596,6 +1697,8 @@
               }
 
               async toggleMute() {
+                  if (this.checkIfLocked()) return;
+                  
                   const isMuted = this.elements.muteToggle.classList.contains('active');
                   const newState = isMuted ? 'Off' : 'On';
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Volume><Mute>${newState}</Mute></Volume></${this.currentZone}></YAMAHA_AV>`;
@@ -1610,6 +1713,8 @@
               }
 
               async selectInput(input) {
+                  if (this.checkIfLocked()) return;
+                  
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Input><Input_Sel>${input}</Input_Sel></Input></${this.currentZone}></YAMAHA_AV>`;
 
                   try {
@@ -1622,6 +1727,8 @@
               }
 
               async selectScene(scene) {
+                  if (this.checkIfLocked()) return;
+                  
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Scene><Scene_Sel>Scene ${scene}</Scene_Sel></Scene></${this.currentZone}></YAMAHA_AV>`;
 
                   try {
@@ -1633,6 +1740,8 @@
               }
 
               async setDSPMode(mode) {
+                  if (this.checkIfLocked()) return;
+                  
                   const xml = `<YAMAHA_AV
   cmd="PUT"><${this.currentZone}><Surround><Program_Sel><Current><Sound_Program>${mode}</Sound_Program></Current></Program_Sel></Surround></${this.currentZone}></YAMAHA_AV>`;
 
@@ -1646,6 +1755,8 @@
               }
 
               async setDialogueLevel(level) {
+                  if (this.checkIfLocked()) return;
+                  
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Surround><Program_Sel><Current><DSP_Parameter><Dialogue_Level><Val>${level}</Val></Dialogue_Level></DSP_Parameter></Current></Program_Sel>
   </Surround></${this.currentZone}></YAMAHA_AV>`;
 
@@ -1658,6 +1769,8 @@
               }
 
               async setEQBand(frequency, value) {
+                  if (this.checkIfLocked()) return;
+                  
                   try {
                       this.showMessage(`EQ ${frequency}Hz: ${value} dB`, 'info');
                   } catch (error) {
@@ -1666,6 +1779,8 @@
               }
 
               resetEqualizer() {
+                  if (this.checkIfLocked()) return;
+                  
                   this.elements.eqSliders.forEach(slider => {
                       slider.value = 0;
                       const band = slider.closest('.eq-band');
@@ -1677,6 +1792,8 @@
 
               // Bass and Treble Controls
               async setBassLevel(level) {
+                  if (this.checkIfLocked()) return;
+                  
                   const bassValue = Math.round(level * 10);
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Sound_Video><Tone><Bass><Val>${bassValue}</Val><Exp>1</Exp><Unit>dB</Unit></Bass></Tone></Sound_Video></${this.currentZone}></YAMAHA_AV>`;
 
@@ -1689,6 +1806,8 @@
               }
 
               async setTrebleLevel(level) {
+                  if (this.checkIfLocked()) return;
+                  
                   const trebleValue = Math.round(level * 10);
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Sound_Video><Tone><Treble><Val>${trebleValue}</Val><Exp>1</Exp><Unit>dB</Unit></Treble></Tone></Sound_Video></${this.currentZone}></YAMAHA_AV>`;
 
@@ -1759,6 +1878,8 @@
               }
 
               async setHDMIAudioFormat(format) {
+                  if (this.checkIfLocked()) return;
+                  
                   try {
                       this.showMessage(`HDMI Audio Format: ${format}`, 'info');
                   } catch (error) {
@@ -1767,6 +1888,8 @@
               }
 
               async setHDMIControl(control) {
+                  if (this.checkIfLocked()) return;
+                  
                   try {
                       this.showMessage(`HDMI Control: ${control}`, 'info');
                   } catch (error) {
@@ -1775,6 +1898,8 @@
               }
 
               switchZone(zone) {
+                  if (this.checkIfLocked()) return;
+                  
                   this.currentZone = zone;
                   this.elements.tabs.forEach(tab => {
                       tab.classList.toggle('active', tab.dataset.zone === zone);
@@ -1802,12 +1927,123 @@
               }
 
               showMessage(text, type = 'info') {
+                  // Don't show normal messages if permanent error is active
+                  if (this.permanentErrorTimer && type !== 'error') {
+                      return;
+                  }
+                  
                   this.elements.message.textContent = text;
                   this.elements.message.className = `message ${type} show`;
 
                   setTimeout(() => {
-                      this.elements.message.classList.remove('show');
+                      // Only hide if no permanent error is active
+                      if (!this.permanentErrorTimer) {
+                          this.elements.message.classList.remove('show');
+                      }
                   }, 3000);
+              }
+              
+              // Heart unlock functionality
+              startHeartHold(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('Heart hold started, isLocked:', this.isLocked);
+                  
+                  this.heartHoldStartTime = Date.now();
+                  
+                  // Visual feedback - scale heart
+                  this.elements.heartUnlock.style.transform = 'scale(1.2)';
+                  this.elements.heartUnlock.style.color = '#e16162';
+                  
+                  this.heartHoldTimer = setTimeout(() => {
+                      console.log('Timer triggered, isLocked:', this.isLocked);
+                      if (this.isLocked) {
+                          this.unlockApp();
+                      }
+                  }, 2000);
+              }
+              
+              endHeartHold() {
+                  console.log('Heart hold ended');
+                  
+                  const holdDuration = this.heartHoldStartTime ? Date.now() - this.heartHoldStartTime : 0;
+                  console.log('Hold duration:', holdDuration);
+                  
+                  if (this.heartHoldTimer) {
+                      clearTimeout(this.heartHoldTimer);
+                      this.heartHoldTimer = null;
+                  }
+                  
+                  // Reset visual feedback
+                  this.elements.heartUnlock.style.transform = 'scale(1)';
+                  this.elements.heartUnlock.style.color = '';
+                  
+                  // Check if hold was long enough - only show error if hold was too short and app is locked
+                  if (this.heartHoldStartTime && holdDuration < 2000 && this.isLocked) {
+                      this.showMessage('Netzwerkfehler...', 'error');
+                  }
+                  
+                  this.heartHoldStartTime = null;
+              }
+              
+              unlockApp() {
+                  console.log('Unlocking app');
+                  this.isLocked = false;
+                  this.showMessage('App entsperrt', 'success');
+                  
+                  // Visual feedback for unlock
+                  this.elements.heartUnlock.style.color = '#9cb68f';
+                  this.updateLockStatus();
+                  
+                  // Auto-lock after 5 minutes
+                  setTimeout(() => {
+                      this.lockApp();
+                  }, 300000); // 5 minutes
+              }
+              
+              lockApp() {
+                  this.isLocked = true;
+                  this.elements.heartUnlock.style.color = '';
+                  this.updateLockStatus();
+                  this.showMessage('App gesperrt', 'info');
+              }
+              
+              updateLockStatus() {
+                  if (this.elements.lockStatus) {
+                      this.elements.lockStatus.textContent = '';
+                  }
+              }
+              
+              checkIfLocked() {
+                  if (this.isLocked && this.connected) {
+                      this.showMessage('Netzwerkfehler...', 'error');
+                      return true;
+                  }
+                  return false;
+              }
+              
+              showPermanentError() {
+                  // Clear any existing permanent error
+                  this.clearPermanentError();
+                  
+                  // Show permanent error message
+                  this.elements.message.textContent = 'Netzwerkfehler...';
+                  this.elements.message.className = 'message error show';
+                  
+                  // Keep showing the error every 3 seconds
+                  this.permanentErrorTimer = setInterval(() => {
+                      if (!this.connected) {
+                          this.elements.message.textContent = 'Netzwerkfehler...';
+                          this.elements.message.className = 'message error show';
+                      }
+                  }, 3000);
+              }
+              
+              clearPermanentError() {
+                  if (this.permanentErrorTimer) {
+                      clearInterval(this.permanentErrorTimer);
+                      this.permanentErrorTimer = null;
+                  }
               }
 
               // Main Tab Navigation
@@ -1835,6 +2071,8 @@
 
               // Extended Functions
               async toggleExtraBass() {
+                  if (this.checkIfLocked()) return;
+                  
                   const isActive = this.elements.extraBassToggle.classList.contains('active');
                   const newState = isActive ? 'Off' : 'On';
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Sound_Video><Extra_Bass>${newState}</Extra_Bass></Sound_Video></${this.currentZone}></YAMAHA_AV>`;
@@ -1850,6 +2088,8 @@
 
 
               async togglePureDirect() {
+                  if (this.checkIfLocked()) return;
+                  
                   const isActive = this.elements.pureDirectToggle.classList.contains('active');
                   const newState = isActive ? 'Off' : 'On';
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Sound_Video><Direct><Mode>${newState}</Mode></Direct></Sound_Video></${this.currentZone}></YAMAHA_AV>`;
@@ -1864,6 +2104,8 @@
               }
 
               async toggleStraightMode() {
+                  if (this.checkIfLocked()) return;
+                  
                   const isActive = this.elements.straightModeToggle.classList.contains('active');
                   const newState = isActive ? 'Off' : 'On';
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Surround><Program_Sel><Current><Straight>${newState}</Straight></Current></Program_Sel></Surround></${this.currentZone}></YAMAHA_AV>`;
@@ -1878,6 +2120,8 @@
               }
 
               async toggleVPS() {
+                  if (this.checkIfLocked()) return;
+                  
                   const isActive = this.elements.vpsToggle.classList.contains('active');
                   // VPS is activated by selecting a Cinema DSP program
                   const program = isActive ? 'Straight' : 'Movie';
@@ -1896,6 +2140,8 @@
 
 
               async setSleepTimer(minutes) {
+                  if (this.checkIfLocked()) return;
+                  
                   const sleepValue = minutes === '0' ? 'Off' : `${minutes} min`;
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Power_Control><Sleep>${sleepValue}</Sleep></Power_Control></${this.currentZone}></YAMAHA_AV>`;
 
@@ -1995,10 +2241,47 @@
                       this.showMessage('Fehler beim Laden der Systeminformationen', 'error');
                   }
               }
+              
+              // Theme Management
+              initializeTheme() {
+                  this.applyTheme(this.currentTheme);
+              }
+              
+              toggleTheme() {
+                  this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+                  this.applyTheme(this.currentTheme);
+                  localStorage.setItem('theme', this.currentTheme);
+              }
+              
+              applyTheme(theme) {
+                  document.documentElement.setAttribute('data-theme', theme);
+                  if (this.elements.themeToggle) {
+                      this.elements.themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+                  }
+              }
           }
 
-          // Initialize the application
-          const receiver = new YamahaAdvancedReceiver();
+          // Initialize the application when DOM is ready
+          let receiver;
+          
+          if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', initApp);
+          } else {
+              initApp();
+          }
+          
+          function initApp() {
+              console.log('DOM ready, initializing app...');
+              receiver = new YamahaAdvancedReceiver();
+              
+              // Debug: Add visual indicator for lock status
+              console.log('App initialized, isLocked:', receiver.isLocked);
+              
+              // Update lock status on page load
+              setTimeout(() => {
+                  receiver.updateLockStatus();
+              }, 100);
+          }
 
       </script>
     <script>
@@ -2011,7 +2294,8 @@
     
     <!-- Footer -->
     <footer style="text-align: center; padding: 20px; margin-top: 40px; color: rgba(255, 255, 255, 0.6); font-size: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-        Made with ❤️ by Martin Pfeffer
+        Made with <span id="heart-unlock" style="cursor: pointer; user-select: none; transition: all 0.3s ease; padding: 10px; display: inline-block; font-size: 18px;">❤️</span> by Martin Pfeffer
+        <div id="lock-status" style="font-size: 12px; margin-top: 5px; opacity: 0.7;"></div>
     </footer>
   </body>
   </html>

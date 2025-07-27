@@ -3,7 +3,7 @@
 Eine professionelle Web-Anwendung zur vollständigen Steuerung des Yamaha RX-V577 AV-Receivers mit erweiterten Funktionen und modernem Dark Theme Interface.
 
 **Status**: ✅ Vollständig funktionsfähig und produktionsbereit  
-**Version**: 1.0.0  
+**Version**: 1.1.0  
 **Letzte Aktualisierung**: Juli 2025  
 **Bereitstellung**: PM2 Process Manager auf Raspberry Pi (Port 5001)
 
@@ -18,7 +18,8 @@ Eine professionelle Web-Anwendung zur vollständigen Steuerung des Yamaha RX-V57
 ### 📱 **Navigation & Interface**
 - **3 Main Tabs**: Grundsteuerung (Basic), Erweiterte Funktionen (Extended), System Info
 - **Multi-Zone Control**: Hauptzone und Zone 2 mit separaten Einstellungen
-- **Modern Dark Theme**: Professionelles dunkles UI mit CSS-Variablen
+- **Dual Theme Support**: Dark Theme (Standard) und Light Theme mit einem Klick umschaltbar
+- **Theme Toggle**: 🌙/☀️ Button zum einfachen Wechseln zwischen Dark/Light Mode
 - **Responsive Design**: Optimiert für Desktop, Tablet und Mobile
 - **PWA-Ready**: Progressive Web App mit Offline-Funktionalität
 - **German Localization**: Vollständig deutsche Benutzeroberfläche
@@ -99,6 +100,7 @@ Eine professionelle Web-Anwendung zur vollständigen Steuerung des Yamaha RX-V57
 - **Auto-Connect**: Automatische Wiederverbindung beim Start
 - **Connection Panel Toggle**: Einklappbare Verbindungssteuerung
 - **Real-Time Polling**: 5-Sekunden Status-Updates
+- **Smart Error Handling**: Verbesserte Fehlermeldungen bei Verbindungsproblemen
 
 ## Installation & Setup
 
@@ -258,10 +260,10 @@ Beispiel-Befehle:
 
 ### Verbindungsprobleme
 - **"Verbindung fehlgeschlagen"**: IP-Adresse auf Korrektheit überprüfen
-- **"Netzwerkfehler - CORS-Einstellungen prüfen"**: 
-  - Moderne Browser blockieren möglicherweise Cross-Origin-Anfragen
-  - Lokalen Webserver oder Proxy verwenden
-  - Manche Browser funktionieren besser für lokale Netzwerkanfragen
+- **"Netzwerkfehler..."**: 
+  - IP-Adresse des Receivers überprüfen
+  - Sicherstellen, dass Receiver eingeschaltet und im Netzwerk erreichbar ist
+  - Bei persistenten Fehlern: Receiver neu starten und erneut versuchen
 
 ### Einschaltprobleme
 - **Einschalten funktioniert nicht**: 
