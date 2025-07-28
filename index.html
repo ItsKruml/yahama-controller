@@ -1170,10 +1170,12 @@
                   this.heartHoldStartTime = null;
                   this.permanentErrorTimer = null;
                   this.currentTheme = localStorage.getItem('theme') || 'dark';
+                  this.isPermanentlyUnlocked = localStorage.getItem('yamaha-permanent-unlock') === 'true';
                   this.initializeElements();
                   this.attachEventListeners();
                   this.loadSavedIP();
                   this.initializeTheme();
+                  this.initializePermanentUnlock();
               }
 
               initializeElements() {
@@ -1431,6 +1433,14 @@
                           e.preventDefault();
                       });
                       
+                      this.elements.heartUnlock.addEventListener('dblclick', (e) => {
+                          console.log('Double-click on heart, resetting permanent unlock');
+                          if (this.isPermanentlyUnlocked) {
+                              this.resetPermanentUnlock();
+                          }
+                          e.preventDefault();
+                      });
+                      
                       // Prevent context menu
                       this.elements.heartUnlock.addEventListener('contextmenu', (e) => e.preventDefault());
                   } else {
@@ -1500,8 +1510,8 @@
                       this.elements.zoneTabs.style.display = 'flex';
                       this.elements.controls.style.display = 'block';
 
-                      // Now lock the GUI for controls
-                      this.isLocked = true;
+                      // Now lock the GUI for controls (unless permanently unlocked)
+                      this.isLocked = !this.isPermanentlyUnlocked;
                       this.updateLockStatus();
                       this.showMessage('Erfolgreich verbunden', 'success');
                       this.startStatusPolling();
@@ -1987,21 +1997,28 @@
               }
               
               unlockApp() {
-                  console.log('Unlocking app');
+                  console.log('Unlocking app permanently');
                   this.isLocked = false;
-                  this.showMessage('App entsperrt', 'success');
+                  this.isPermanentlyUnlocked = true;
+                  
+                  // Save permanent unlock state to localStorage
+                  localStorage.setItem('yamaha-permanent-unlock', 'true');
+                  
+                  this.showMessage('App permanent entsperrt', 'success');
                   
                   // Visual feedback for unlock
                   this.elements.heartUnlock.style.color = '#9cb68f';
                   this.updateLockStatus();
                   
-                  // Auto-lock after 5 minutes
-                  setTimeout(() => {
-                      this.lockApp();
-                  }, 300000); // 5 minutes
+                  // No auto-lock when permanently unlocked
               }
               
               lockApp() {
+                  // Don't lock if permanently unlocked
+                  if (this.isPermanentlyUnlocked) {
+                      return;
+                  }
+                  
                   this.isLocked = true;
                   this.elements.heartUnlock.style.color = '';
                   this.updateLockStatus();
@@ -2258,6 +2275,28 @@
                   if (this.elements.themeToggle) {
                       this.elements.themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
                   }
+              }
+              
+              initializePermanentUnlock() {
+                  if (this.isPermanentlyUnlocked && this.elements.heartUnlock) {
+                      this.elements.heartUnlock.style.color = '#9cb68f';
+                      console.log('App initialized with permanent unlock');
+                  }
+              }
+              
+              resetPermanentUnlock() {
+                  console.log('Resetting permanent unlock');
+                  this.isPermanentlyUnlocked = false;
+                  localStorage.removeItem('yamaha-permanent-unlock');
+                  
+                  // Reset visual state
+                  if (this.elements.heartUnlock) {
+                      this.elements.heartUnlock.style.color = '';
+                  }
+                  
+                  // Lock the app again
+                  this.lockApp();
+                  this.showMessage('Permanente Entsperrung zurückgesetzt', 'info');
               }
           }
 
