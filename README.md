@@ -21,8 +21,9 @@ Eine professionelle Web-Anwendung zur vollständigen Steuerung des Yamaha RX-V57
 - **Dual Theme Support**: Dark Theme (Standard) und Light Theme mit einem Klick umschaltbar
 - **Theme Toggle**: 🌙/☀️ Button zum einfachen Wechseln zwischen Dark/Light Mode
 - **Responsive Design**: Optimiert für Desktop, Tablet und Mobile
-- **PWA-Ready**: Progressive Web App mit Offline-Funktionalität
+- **PWA-Ready**: Progressive Web App mit Offline-Funktionalität und korrekten App-Icons
 - **German Localization**: Vollständig deutsche Benutzeroberfläche
+- **📲 Installierbar**: Als App auf Smartphone-Homescreen mit korrekten Favicons
 
 ### 🔊 **Audio-Steuerung**
 - **Power Control**: Ein/Aus mit visuellem Status-Indikator
