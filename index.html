@@ -1654,6 +1654,22 @@
                   }
               }
 
+              async adjustVolume(change) {
+                  const currentValue = parseFloat(this.elements.volumeSlider.value);
+                  const newValue = currentValue + change;
+                  
+                  // Get slider limits
+                  const minValue = parseFloat(this.elements.volumeSlider.min);
+                  const maxValue = parseFloat(this.elements.volumeSlider.max);
+                  
+                  // Clamp value to slider range
+                  const clampedValue = Math.max(minValue, Math.min(maxValue, newValue));
+                  
+                  // Update slider and send command
+                  this.elements.volumeSlider.value = clampedValue;
+                  await this.setVolume(clampedValue);
+              }
+
               async toggleMute() {
                   
                   const isMuted = this.elements.muteToggle.classList.contains('active');

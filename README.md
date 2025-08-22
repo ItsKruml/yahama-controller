@@ -264,6 +264,7 @@ Beispiel-Befehle:
 - ✅ **Unlock-Mechanismus komplett entfernt** - App funktioniert ohne Authentifizierung
 - ✅ **UI-Optimierung** - Audio Enhancement als zweite Sektion in Grundsteuerung verschoben
 - ✅ **Auto-Connect aktiviert** - Automatische Verbindung beim Laden mit gespeicherter IP
+- ✅ **Volume Buttons Fix** - +/- Lautstärke-Buttons funktionieren jetzt korrekt
 - ✅ **Enhanced Error Handling** - Detaillierte Fehlermeldungen und Null-Pointer-Schutz
 - ✅ **Verbesserte Stabilität** - Robuste Verbindungslogik mit Fehlerbehandlung
 - ✅ **Zuverlässigkeit** - Alle Steuerungsfunktionen direkt ohne Sperren verfügbar
