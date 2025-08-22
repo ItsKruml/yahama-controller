@@ -1,180 +1,108 @@
-# 🎛️ Yamaha RX-V577 Controller - Claude Project Documentation
+# CLAUDE.md
 
-## Projektstatus
-- **Status**: ✅ Vollständig funktionsfähig und strukturiert
-- **Letztes Update**: Juli 2025
-- **Version**: 1.0.0
-- **Technologie**: Node.js Express Server mit statischer Frontend-App
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Aktuelle Projektstruktur
-```
-yamaha-rx-v577-controller/
-├── public/                 # Statische Assets
-│   ├── assets/            # Bilder und andere Assets
-│   │   ├── yahama-mockup-1.png    # Mockup-Bild 1
-│   │   └── yamaha-mockup-2.png    # Mockup-Bild 2
-│   ├── favicon.ico        # Website Icon
-│   ├── favicon-16x16.png  # 16x16 Favicon
-│   ├── favicon-32x32.png  # 32x32 Favicon
-│   ├── apple-touch-icon.png       # iOS App Icon
-│   ├── android-chrome-192x192.png # Android App Icon (192x192)
-│   └── android-chrome-512x512.png # Android App Icon (512x512)
-├── index.html              # Haupt-Interface mit Advanced Controls
-├── server.js               # Express.js Server mit CORS Proxy
-├── package.json            # Node.js Dependencies
-├── receiver-config.json    # Gespeicherte Receiver-IP (gitignore)
-├── deploy-raspi.sh         # Deployment-Script für Raspberry Pi
-├── .gitignore             # Git Ignore-Regeln
-├── README.md              # Projektdokumentation
-└── CLAUDE.md              # Diese Datei
-```
+## Project Overview
 
-## Server-Konfiguration
+Yamaha RX-V577 Controller - A web application for controlling Yamaha AV receivers via their XML-based network API. The application runs as a Node.js Express server with a single-page vanilla JavaScript frontend.
 
-### PM2 Process Manager
-- **Service Name**: `yamaha-controller`
-- **Port**: 5001
-- **Auto-Start**: ✅ Konfiguriert via SystemD (`pm2-martin.service`)
-- **Status**: Online und läuft stabil
-- **Zugriff**: http://localhost:5001
+## Architecture
 
-### Express.js Server Details
-- **Statische Dateien**: Serviert aus `public/` Ordner
-- **CORS**: Aktiviert für alle Routen
-- **Proxy**: Yamaha Receiver API über `/api/receiver/*`
-- **Cache-Headers**: Optimiert für Favicons und Assets (1 Jahr)
-- **HTML No-Cache**: Verhindert Browser-Caching für Interface-Updates
+### Core Components
 
-## Funktionalitäten
+**Server (server.js)**
+- Express.js server on port 5001
+- CORS proxy to bypass browser restrictions when communicating with receiver
+- Persistent IP configuration storage in `receiver-config.json`
+- Static file serving for the frontend
+- Health check endpoint at `/api/health`
 
-### ✅ Implementierte Features
-1. **Vollständige Receiver-Steuerung**
-   - Power On/Off mit visueller Rückmeldung
-   - Lautstärke-Kontrolle (-80 dB bis +16 dB)
-   - Quellenauswahl (HDMI 1-4, AV 1-2, AirPlay, Server)
-   - Stummschaltung mit Toggle-Switch
+**Frontend (index.html)**
+- Single-file application with embedded CSS and JavaScript
+- `YamahaAdvancedReceiver` class handles all receiver communication
+- Three main tabs: Basic controls, Extended features, System info
+- Real-time status polling every 5 seconds when connected
+- XML-based communication with receiver through server proxy
 
-2. **DSP & Audio Processing**
-   - 15 DSP Programme (Movie, Music, Game, Concert Hall, etc.)
-   - Dialog Level Adjustment (-6 bis +6 dB)
-   - 7-Band Equalizer (63Hz - 16kHz)
-   - Bass/Treble Controls (-6 bis +6 dB)
+### Communication Flow
+1. Frontend sends XML commands to `/api/receiver/*` endpoint
+2. Server proxies requests to actual receiver IP
+3. Receiver responds with XML
+4. Frontend parses XML response and updates UI
 
-3. **Erweiterte Audio-Features**
-   - Extra Bass Toggle
-   - Compressed Music Enhancer
-   - Pure Direct Mode
-   - Straight Mode
-   - Virtual Presence Speaker (VPS)
+## Common Commands
 
-4. **System & Netzwerk**
-   - IP-Konfiguration mit persistenter Speicherung
-   - Real-time Status Polling (5 Sekunden)
-   - Multi-Zone Support (Main Zone, Zone 2)
-   - Szenen-Presets (1-4)
-   - Sleep Timer (30-120 Minuten)
-
-5. **UI/UX**
-   - Modern Dark Theme Interface
-   - 3 Haupt-Tabs: Basic, Extended, System Info
-   - Responsive Design (Desktop/Mobile)
-   - Status-Indikatoren und Live-Updates
-   - Collapsible Connection Panel
-
-### 📱 Interface-Tabs
-1. **Grundsteuerung**: Power, Volume, Input, DSP, Equalizer
-2. **Erweiterte Funktionen**: Audio Enhancement, Sleep Timer, Presets
-3. **System Info**: Firmware, Temperatur, Netzwerk-Details
-
-## Technische Implementierung
-
-### Yamaha XML API Integration
-- **Protokoll**: HTTP POST requests mit XML-Payloads
-- **Endpoint**: `/YamahaRemoteControl/ctrl` auf Receiver IP
-- **Status Polling**: Automatisch alle 5 Sekunden
-- **Error Handling**: Comprehensive mit User-Feedback
-
-### Frontend-Technologie
-- **Vanilla JavaScript**: Keine Frameworks, optimierte Performance
-- **CSS Custom Properties**: Dark Theme mit CSS-Variablen
-- **Responsive Grid**: Auto-fit layouts für verschiedene Screengrößen
-- **PWA-Ready**: Favicon-Sets und Cache-Headers vorbereitet
-
-### Server-Features
-- **CORS Proxy**: Umgeht Browser-Sicherheitsbeschränkungen
-- **IP Validation**: Regex-basierte Validierung für Receiver-IPs
-- **Config Persistence**: JSON-basierte Speicherung der Receiver-IP
-- **Health Check**: `/api/health` Endpoint für Monitoring
-
-## Git Repository
-
-### Repository-Details
-- **URL**: https://github.com/pepperonas/yahama-controller.git
-- **Branch**: main
-- **Letzter Commit**: "Update project to Yamaha RX-V577 Controller"
-
-### .gitignore Konfiguration
-- Node.js Dependencies (`node_modules/`)
-- Runtime Config (`receiver-config.json`)
-- Core Dumps (`core`)
-- OS-spezifische Dateien (`.DS_Store`, `Thumbs.db`)
-- IDE-Dateien (`.vscode/`, `.idea/`)
-- Logs und Cache-Dateien
-
-## Deployment & Betrieb
-
-### Raspberry Pi Deployment
-- **Auto-Start**: SystemD Service konfiguriert
-- **Process Manager**: PM2 für Stability und Monitoring
-- **Network Access**: Läuft auf 0.0.0.0:5001 für LAN-Zugriff
-- **Logging**: PM2 integrierte Log-Verwaltung
-
-### Übliche Befehle
 ```bash
-# PM2 Management
-pm2 status                    # Status aller Services
-pm2 logs yamaha-controller    # Log-Ausgabe anzeigen
-pm2 restart yamaha-controller # Service neu starten
-pm2 save                      # Aktuelle Konfiguration speichern
+# Development
+npm start                     # Start server (port 5001)
+npm run dev                   # Start with nodemon for auto-reload
 
-# Manual Testing
-npm start                     # Direkter Start für Development
-curl http://localhost:5001/api/health  # Health Check
+# PM2 Production (on Raspberry Pi)
+pm2 status                    # Check service status
+pm2 logs yamaha-controller    # View logs
+pm2 restart yamaha-controller # Restart service
+pm2 save                      # Save current PM2 config
+
+# Testing
+curl http://localhost:5001/api/health  # Health check
+curl -X POST http://192.168.x.x/YamahaRemoteControl/ctrl -H "Content-Type: text/xml" -d '<YAMAHA_AV cmd="GET"><Main_Zone><Basic_Status>GetParam</Basic_Status></Main_Zone></YAMAHA_AV>' # Direct receiver test
 ```
 
-## Bekannte Kompatibilität
+## Key Implementation Details
 
-### Getestete Receiver
-- **Yamaha RX-V577**: ✅ Vollständig kompatibel
-- **Andere RX-V Serie**: Sehr wahrscheinlich kompatibel
-- **Yamaha HTR Serie**: Mit Netzwerk-Features kompatibel
+### Yamaha XML API
+- All commands use POST requests to `/YamahaRemoteControl/ctrl`
+- Commands are XML formatted: `<YAMAHA_AV cmd="PUT">...</YAMAHA_AV>`
+- Zone-based control (Main_Zone, Zone_2)
+- Volume values are in 1/10 dB units (e.g., -500 = -50.0 dB)
 
-### Browser-Support
-- **Chrome/Chromium**: ✅ Beste Kompatibilität
-- **Firefox**: ✅ Vollständig kompatibel
-- **Safari**: ⚠️ CORS-Einschränkungen möglich
-- **Edge**: ✅ Vollständig kompatibel
+### Frontend State Management
+- Receiver IP stored in both localStorage and server-side JSON file
+- Connection state managed in `YamahaAdvancedReceiver.connected`
+- UI updates happen through `updateUI()` method after each command
+- Status polling via `getStatus()` every 5 seconds when connected
 
-## Entwicklungshinweise
+### Critical Files
+- `index.html` - Contains entire frontend application
+- `server.js` - Express server with CORS proxy
+- `receiver-config.json` - Persisted receiver IP (gitignored)
+- `package.json` - Dependencies (express, cors, http-proxy-middleware)
 
-### Code-Qualität
-- **Error Handling**: Comprehensive try-catch blocks
-- **User Feedback**: Toast-Messages für alle Aktionen
-- **Performance**: Optimierte Status-Updates und Caching
-- **Security**: IP-Validation und No-Script-Injection
+## Deployment Notes
 
-### Erweiterbarkeit
-- **Modular JavaScript**: Gut strukturierte YamahaAdvancedReceiver Klasse
-- **CSS-Variablen**: Einfache Theme-Anpassungen
-- **Config-System**: JSON-basiert, leicht erweiterbar
-- **API-Ready**: RESTful Design für zukünftige Features
+The app runs on a Raspberry Pi using PM2 process manager:
+- Service name: `yamaha-controller`
+- Auto-starts via SystemD integration
+- Accessible on LAN at `http://[RASPI-IP]:5001`
 
-### Debugging
-- **PM2 Logs**: `pm2 logs yamaha-controller`
-- **Browser Console**: JavaScript Error-Logging
-- **Network Tab**: XML-Requests zur Receiver-API überwachen
-- **Health Endpoint**: `/api/health` für Server-Status
+## Common Issues and Solutions
 
----
+### Connection Problems
+- Check if receiver IP is reachable: `ping [RECEIVER-IP]`
+- Verify server proxy: `curl -X POST http://localhost:5001/api/receiver/YamahaRemoteControl/ctrl`
+- Add detailed logging: Console will show "Setting receiver IP" and "Getting receiver status" messages
 
-**Projekt erfolgreich implementiert und deployment-ready!** 🎉
+### Null Pointer Errors
+- Always add null checks when accessing DOM elements: `const element = document.getElementById('id'); if (element) { ... }`
+- Common issue with tab elements not being found during initialization
+
+### Auto-Connect Issues
+- Auto-connect has been disabled to prevent startup failures
+- Connection panel remains visible for manual connection
+- Saved IP addresses are loaded but require manual "Verbinden" click
+
+## Recent Changes (August 2025)
+
+- **Unlock mechanism completely removed** - App works without authentication
+- **Connection panel always visible** - No auto-hide when IP is saved
+- **Auto-connect disabled** - Manual connection required for reliability
+- **Improved error handling** - Better logging and null checks
+- **No authentication barriers** - All control functions directly accessible
+
+## Error Handling
+
+- Network errors show user-friendly messages via toast notifications
+- Receiver connection failures provide specific error details in console
+- XML parsing errors are caught and logged to console
+- Server proxy errors return appropriate HTTP status codes
+- Null element access is protected with defensive checks

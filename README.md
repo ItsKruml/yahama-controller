@@ -3,8 +3,8 @@
 Eine professionelle Web-Anwendung zur vollständigen Steuerung des Yamaha RX-V577 AV-Receivers mit erweiterten Funktionen und modernem Dark Theme Interface.
 
 **Status**: ✅ Vollständig funktionsfähig und produktionsbereit  
-**Version**: 1.1.0  
-**Letzte Aktualisierung**: Juli 2025  
+**Version**: 1.2.0  
+**Letzte Aktualisierung**: August 2025  
 **Bereitstellung**: PM2 Process Manager auf Raspberry Pi (Port 5001)
 
 > **Hinweis**: Dieses Projekt trägt bewusst nicht den offiziellen "Yamaha"-Markennamen im Projektverzeichnis oder Code, um lizenzrechtliche Konflikte zu vermeiden. Es handelt sich um eine inoffizielle, Open-Source-Implementierung für den persönlichen Gebrauch.
@@ -16,8 +16,9 @@ Eine professionelle Web-Anwendung zur vollständigen Steuerung des Yamaha RX-V57
 ## Features
 
 ### 📱 **Navigation & Interface**
-- **3 Main Tabs**: Grundsteuerung (Basic), Erweiterte Funktionen (Extended), System Info
+- **2 Main Tabs**: Grundsteuerung (Basic), System Info
 - **Multi-Zone Control**: Hauptzone und Zone 2 mit separaten Einstellungen
+- **Optimierte Anordnung**: Audio Enhancement direkt in der Grundsteuerung
 - **Dual Theme Support**: Dark Theme (Standard) und Light Theme mit einem Klick umschaltbar
 - **Theme Toggle**: 🌙/☀️ Button zum einfachen Wechseln zwischen Dark/Light Mode
 - **Responsive Design**: Optimiert für Desktop, Tablet und Mobile
@@ -256,6 +257,22 @@ Beispiel-Befehle:
 - Receiver und steuerndes Gerät müssen im selben Netzwerk sein
 - HTTP-Anfragen an Receiver IP-Adresse auf Port 80
 - Keine Authentifizierung für lokalen Netzwerkzugriff erforderlich
+
+## Changelog
+
+### Version 1.2.0 (August 2025)
+- ✅ **Unlock-Mechanismus komplett entfernt** - App funktioniert ohne Authentifizierung
+- ✅ **UI-Optimierung** - Audio Enhancement als zweite Sektion in Grundsteuerung verschoben
+- ✅ **Verbesserte Stabilität** - Connection-Panel bleibt für manuelle Verbindung sichtbar
+- ✅ **Auto-Connect deaktiviert** - Verhindert Startup-Fehler, manuelle Verbindung erforderlich
+- ✅ **Enhanced Error Handling** - Detaillierte Fehlermeldungen und Null-Pointer-Schutz
+- ✅ **Zuverlässigkeit** - Alle Steuerungsfunktionen direkt ohne Sperren verfügbar
+
+### Version 1.1.0 (Juli 2025)
+- ✅ PWA-Funktionalität mit korrekten App-Icons
+- ✅ Dual Theme Support (Dark/Light Mode)
+- ✅ Responsive Design-Verbesserungen
+- ✅ Erweiterte Audio-Funktionen
 
 ## Problembehandlung
 
