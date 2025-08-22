@@ -263,9 +263,9 @@ Beispiel-Befehle:
 ### Version 1.2.0 (August 2025)
 - ✅ **Unlock-Mechanismus komplett entfernt** - App funktioniert ohne Authentifizierung
 - ✅ **UI-Optimierung** - Audio Enhancement als zweite Sektion in Grundsteuerung verschoben
-- ✅ **Verbesserte Stabilität** - Connection-Panel bleibt für manuelle Verbindung sichtbar
-- ✅ **Auto-Connect deaktiviert** - Verhindert Startup-Fehler, manuelle Verbindung erforderlich
+- ✅ **Auto-Connect aktiviert** - Automatische Verbindung beim Laden mit gespeicherter IP
 - ✅ **Enhanced Error Handling** - Detaillierte Fehlermeldungen und Null-Pointer-Schutz
+- ✅ **Verbesserte Stabilität** - Robuste Verbindungslogik mit Fehlerbehandlung
 - ✅ **Zuverlässigkeit** - Alle Steuerungsfunktionen direkt ohne Sperren verfügbar
 
 ### Version 1.1.0 (Juli 2025)

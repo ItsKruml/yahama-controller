@@ -1416,7 +1416,8 @@
                       
                       if (data.receiverIP) {
                           this.elements.ipInput.value = data.receiverIP;
-                          // Keep connection panel visible for manual connection
+                          // Auto-connect if IP is saved on server
+                          setTimeout(() => this.connect(), 1000);
                           return;
                       }
                   } catch (error) {
@@ -1427,7 +1428,8 @@
                   const savedIP = localStorage.getItem('yamaha-receiver-ip');
                   if (savedIP) {
                       this.elements.ipInput.value = savedIP;
-                      // Keep connection panel visible for manual connection
+                      // Auto-connect if IP is saved in localStorage
+                      setTimeout(() => this.connect(), 1000);
                   }
               }
 

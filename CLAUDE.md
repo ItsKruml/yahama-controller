@@ -86,17 +86,18 @@ The app runs on a Raspberry Pi using PM2 process manager:
 - Always add null checks when accessing DOM elements: `const element = document.getElementById('id'); if (element) { ... }`
 - Common issue with tab elements not being found during initialization
 
-### Auto-Connect Issues
-- Auto-connect has been disabled to prevent startup failures
-- Connection panel remains visible for manual connection
-- Saved IP addresses are loaded but require manual "Verbinden" click
+### Auto-Connect Behavior
+- Auto-connect is enabled and triggers automatically when saved IP is found
+- Connection attempts happen 1 second after page load for UI stability
+- Falls back to manual connection if no saved IP is available
 
 ## Recent Changes (August 2025)
 
 - **Unlock mechanism completely removed** - App works without authentication
-- **Connection panel always visible** - No auto-hide when IP is saved
-- **Auto-connect disabled** - Manual connection required for reliability
+- **UI optimization** - Audio Enhancement moved to second section in basic controls
+- **Auto-connect enabled** - Automatic connection on page load with saved IP
 - **Improved error handling** - Better logging and null checks
+- **Enhanced stability** - Robust connection logic with error handling
 - **No authentication barriers** - All control functions directly accessible
 
 ## Error Handling
