@@ -1626,8 +1626,6 @@
               }
 
               async togglePower() {
-                  if (this.checkIfLocked()) return;
-                  
                   const isOn = this.elements.powerBtn.classList.contains('on');
                   const newState = isOn ? 'Standby' : 'On';
                   const xml = `<YAMAHA_AV cmd="PUT"><${this.currentZone}><Power_Control><Power>${newState}</Power></Power_Control></${this.currentZone}></YAMAHA_AV>`;

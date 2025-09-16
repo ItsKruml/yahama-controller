@@ -3,8 +3,8 @@
 Eine professionelle Web-Anwendung zur vollständigen Steuerung des Yamaha RX-V577 AV-Receivers mit erweiterten Funktionen und modernem Dark Theme Interface.
 
 **Status**: ✅ Vollständig funktionsfähig und produktionsbereit  
-**Version**: 1.2.0  
-**Letzte Aktualisierung**: August 2025  
+**Version**: 1.2.1  
+**Letzte Aktualisierung**: September 2025  
 **Bereitstellung**: PM2 Process Manager auf Raspberry Pi (Port 5001)
 
 > **Hinweis**: Dieses Projekt trägt bewusst nicht den offiziellen "Yamaha"-Markennamen im Projektverzeichnis oder Code, um lizenzrechtliche Konflikte zu vermeiden. Es handelt sich um eine inoffizielle, Open-Source-Implementierung für den persönlichen Gebrauch.
@@ -259,6 +259,10 @@ Beispiel-Befehle:
 - Keine Authentifizierung für lokalen Netzwerkzugriff erforderlich
 
 ## Changelog
+
+### Version 1.2.1 (September 2025)
+- 🔧 **Power Toggle Bugfix** - Entfernung der veralteten `checkIfLocked()` Aufrufe behoben
+- ✅ **Erhöhte Stabilität** - Power-Button funktioniert jetzt fehlerfrei ohne JavaScript-Fehler
 
 ### Version 1.2.0 (August 2025)
 - ✅ **Unlock-Mechanismus komplett entfernt** - App funktioniert ohne Authentifizierung
