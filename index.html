@@ -1,9 +1,9 @@
 <!DOCTYPE html>
   <html lang="de">
   <head>
-    <link rel="manifest" href="/public/manifest.json">
+    <link rel="manifest" href="public/manifest.json">
     <meta name="theme-color" content="#2c2e3b">
-    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="public/apple-touch-icon.png">
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -37,33 +37,33 @@
       
       <!-- Samsung Browser & Android specific -->
       <meta name="msapplication-TileColor" content="#2B2E3B">
-      <meta name="msapplication-TileImage" content="/apple-touch-icon.png">
-      <meta name="msapplication-square70x70logo" content="/apple-touch-icon.png">
-      <meta name="msapplication-square150x150logo" content="/apple-touch-icon.png">
-      <meta name="msapplication-square310x310logo" content="/apple-touch-icon.png">
+      <meta name="msapplication-TileImage" content="public/apple-touch-icon.png">
+      <meta name="msapplication-square70x70logo" content="public/apple-touch-icon.png">
+      <meta name="msapplication-square150x150logo" content="public/apple-touch-icon.png">
+      <meta name="msapplication-square310x310logo" content="public/apple-touch-icon.png">
       
       <!-- Additional Android Chrome meta tags -->
       <meta name="mobile-web-app-title" content="Yamaha Control">
       <meta name="mobile-web-app-status-bar-style" content="black-translucent">
 
       <!-- Primary Icons (Samsung Browser S24 Ultra priority) with cache busting -->
-      <link rel="shortcut icon" href="/favicon.ico?v=2025080201" type="image/x-icon">
-      <link rel="icon" href="/favicon.ico?v=2025080201" type="image/x-icon">
+      <link rel="shortcut icon" href="public/favicon.ico?v=2025080201" type="image/x-icon">
+      <link rel="icon" href="public/favicon.ico?v=2025080201" type="image/x-icon">
       
       <!-- Apple Touch Icons for iOS and Samsung fallback -->
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2025080201">
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2025080201">
+      <link rel="apple-touch-icon" href="public/apple-touch-icon.png?v=2025080201">
+      <link rel="apple-touch-icon" sizes="180x180" href="public/apple-touch-icon.png?v=2025080201">
       
       <!-- Samsung Browser S24 Ultra specific icons -->
-      <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-      <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-      <link rel="mask-icon" href="/apple-touch-icon.png" color="#2B2E3B">
+      <link rel="icon" type="image/png" sizes="192x192" href="public/android-chrome-192x192.png">
+      <link rel="icon" type="image/png" sizes="512x512" href="public/android-chrome-512x512.png">
+      <link rel="mask-icon" href="public/apple-touch-icon.png" color="#2B2E3B">
       
       <!-- Standard sizes for broad compatibility -->
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-      <link rel="icon" type="image/png" sizes="96x96" href="/apple-touch-icon.png">
-      <link rel="icon" type="image/png" sizes="144x144" href="/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="public/favicon-16x16.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="96x96" href="public/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="144x144" href="public/apple-touch-icon.png">
 
 
       <style>
@@ -774,24 +774,6 @@
                   🌙
               </button>
           </div>
-          <div class="card" id="connection-card">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <h3 style="margin: 0; font-size: 1rem;">Verbindung</h3>
-                  <button class="btn btn-sm" id="toggle-connection" style="background: transparent; border: none; color: var(--text-light); font-size: 1.2rem; padding: 0.25rem 0.5rem;">
-                      <span id="toggle-icon">▼</span>
-                  </button>
-              </div>
-              <div class="connection-panel" id="connection-panel" style="margin-top: var(--spacing-3);">
-                  <label class="form-label">Receiver IP:</label>
-                  <input type="text" id="receiver-ip" class="form-input" placeholder="192.168.1.100" value="">
-                  <button class="btn btn-primary" id="connect-btn">
-                      <span>Verbinden</span>
-                  </button>
-                  <span class="status-indicator status-disconnected" id="connection-status">
-                      Getrennt
-                  </span>
-              </div>
-          </div>
       </header>
 
       <div class="container">
@@ -1175,6 +1157,27 @@
           </div>
       </div>
 
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 var(--spacing-6); margin-top: var(--spacing-4);">
+          <div class="card" id="connection-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <h3 style="margin: 0; font-size: 1rem;">Verbindung</h3>
+                  <button class="btn btn-sm" id="toggle-connection" style="background: transparent; border: none; color: var(--text-light); font-size: 1.2rem; padding: 0.25rem 0.5rem;">
+                      <span id="toggle-icon">▼</span>
+                  </button>
+              </div>
+              <div class="connection-panel" id="connection-panel" style="margin-top: var(--spacing-3);">
+                  <label class="form-label">Receiver IP:</label>
+                  <input type="text" id="receiver-ip" class="form-input" placeholder="192.168.1.100" value="">
+                  <button class="btn btn-primary" id="connect-btn">
+                      <span>Verbinden</span>
+                  </button>
+                  <span class="status-indicator status-disconnected" id="connection-status">
+                      Getrennt
+                  </span>
+              </div>
+          </div>
+    </div>
+
       <div class="message" id="message"></div>
 
       <script>
@@ -1411,7 +1414,7 @@
               async loadSavedIP() {
                   try {
                       // First check server for saved IP
-                      const response = await fetch('/api/health');
+                      const response = await fetch('api/health');
                       const data = await response.json();
                       
                       if (data.receiverIP) {
@@ -1464,6 +1467,9 @@
                       this.elements.controls.style.display = 'block';
 
                       this.showMessage('Erfolgreich verbunden', 'success');
+                      // Auto-collapse connection panel
+                      this.elements.connectionPanel.classList.add("collapsed");
+                      this.elements.toggleIcon.classList.add("collapsed");
                       this.startStatusPolling();
 
                   } catch (error) {
@@ -1487,7 +1493,7 @@
               }
 
               async setReceiverIP(ip) {
-                  const response = await fetch('/api/set-receiver-ip', {
+                  const response = await fetch('api/set-receiver-ip', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ ip })
@@ -1506,7 +1512,7 @@
                       throw new Error('Nicht mit Receiver verbunden');
                   }
 
-                  const url = '/api/receiver/YamahaRemoteControl/ctrl';
+                  const url = 'api/receiver/YamahaRemoteControl/ctrl';
 
                   try {
                       const response = await fetch(url, {

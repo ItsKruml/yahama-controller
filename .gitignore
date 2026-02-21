@@ -1,0 +1,6 @@
+node_modules/
+logs/
+*.log
+receiver-config.json
+index.html.backup
+index.html.backup2
