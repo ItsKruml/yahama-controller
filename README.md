@@ -2,8 +2,8 @@
 
 <div align="center">
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/pepperonas/yahama-controller?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/pepperonas/yahama-controller?style=for-the-badge)
+![GitHub release](https://img.shields.io/github/v/release/pepperonas/yahama-controller?style=for-the-badge&include_prereleases)
+![GitHub last commit](https://img.shields.io/github/last-commit/pepperonas/yahama-controller?style=for-the-badge&color=green)
 ![GitHub issues](https://img.shields.io/github/issues/pepperonas/yahama-controller?style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/pepperonas/yahama-controller?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)
