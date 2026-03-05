@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Yamaha RX-V577 Controller - A web application for controlling Yamaha AV receivers via their XML-based network API. The application runs as a Node.js Express server with a single-page vanilla JavaScript frontend.
+Yamaha RX-V577 Controller - A professional web-based control interface for Yamaha AV receivers with advanced audio features, multi-zone support, and PWA capabilities. The application runs as a Node.js Express server with a single-page vanilla JavaScript frontend.
 
 ## Architecture
 
@@ -62,11 +62,39 @@ curl -X POST http://192.168.x.x/YamahaRemoteControl/ctrl -H "Content-Type: text/
 - UI updates happen through `updateUI()` method after each command
 - Status polling via `getStatus()` every 5 seconds when connected
 
+### Project Structure
+```
+yamaha-controller/
+├── .github/              # GitHub templates and workflows
+│   └── ISSUE_TEMPLATE/   # Bug report and feature request templates
+├── docs/                 # Documentation
+│   ├── API.md           # XML protocol documentation
+│   └── DEPLOYMENT.md    # Deployment guide
+├── public/               # Static assets
+│   └── assets/          # Images and mockups
+├── scripts/             # Utility scripts (future)
+├── tests/               # Test files (future)
+├── examples/            # Example configurations (future)
+├── index.html           # Main frontend application
+├── server.js            # Express server with CORS proxy
+├── package.json         # Dependencies
+├── receiver-config.json # Persisted receiver IP (gitignored)
+├── CLAUDE.md            # This file - AI assistance guide
+├── README.md            # Main documentation (English)
+├── CONTRIBUTING.md      # Contribution guidelines
+├── CHANGELOG.md         # Version history
+├── LICENSE              # MIT License
+├── Dockerfile           # Docker container definition
+└── docker-compose.yml   # Docker compose configuration
+```
+
 ### Critical Files
 - `index.html` - Contains entire frontend application
 - `server.js` - Express server with CORS proxy
 - `receiver-config.json` - Persisted receiver IP (gitignored)
 - `package.json` - Dependencies (express, cors, http-proxy-middleware)
+- `docs/API.md` - Complete XML protocol documentation
+- `docs/DEPLOYMENT.md` - Deployment instructions
 
 ## Deployment Notes
 
@@ -91,8 +119,19 @@ The app runs on a Raspberry Pi using PM2 process manager:
 - Connection attempts happen 1 second after page load for UI stability
 - Falls back to manual connection if no saved IP is available
 
-## Recent Changes (August 2025)
+## Recent Changes (March 2026)
 
+### Documentation & Structure Update
+- **Complete English documentation** - README fully translated with professional formatting
+- **Repository restructure** - Organized directories (docs/, tests/, examples/, scripts/)
+- **Comprehensive badges** - Added project status, technology, and activity badges
+- **Docker support** - Added Dockerfile and docker-compose.yml for containerized deployment
+- **API documentation** - Complete XML protocol documentation in docs/API.md
+- **Deployment guide** - Multiple deployment options documented (PM2, Docker, systemd)
+- **Contributing guidelines** - Added CONTRIBUTING.md with detailed instructions
+- **Issue templates** - Bug report and feature request templates for GitHub
+
+### Previous Updates (August 2025)
 - **Unlock mechanism completely removed** - App works without authentication
 - **UI optimization** - Audio Enhancement moved to second section in basic controls
 - **Auto-connect enabled** - Automatic connection on page load with saved IP
