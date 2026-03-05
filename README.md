@@ -2,6 +2,8 @@
 
 <div align="center">
 
+![Yamaha Controller](public/assets/social-preview.png)
+
 ![GitHub last commit](https://img.shields.io/github/last-commit/pepperonas/yahama-controller?style=for-the-badge&color=green)
 ![GitHub repo size](https://img.shields.io/github/repo-size/pepperonas/yahama-controller?style=for-the-badge)
 ![GitHub code size](https://img.shields.io/github/languages/code-size/pepperonas/yahama-controller?style=for-the-badge)
