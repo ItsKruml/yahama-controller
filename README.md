@@ -1,367 +1,373 @@
 # 🎛️ Yamaha RX-V577 Controller
 
-Eine professionelle Web-Anwendung zur vollständigen Steuerung des Yamaha RX-V577 AV-Receivers mit erweiterten Funktionen und modernem Dark Theme Interface.
+<div align="center">
 
-**Status**: ✅ Vollständig funktionsfähig und produktionsbereit  
-**Version**: 1.2.1  
-**Letzte Aktualisierung**: September 2025  
-**Bereitstellung**: PM2 Process Manager auf Raspberry Pi (Port 5001)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/pepperonas/yahama-controller?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/pepperonas/yahama-controller?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/pepperonas/yahama-controller?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/pepperonas/yahama-controller?style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)
+![Node.js](https://img.shields.io/badge/Node.js-18.x-green?style=for-the-badge&logo=node.js)
+![Express.js](https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express)
+![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)
+![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)
 
-> **Hinweis**: Dieses Projekt trägt bewusst nicht den offiziellen "Yamaha"-Markennamen im Projektverzeichnis oder Code, um lizenzrechtliche Konflikte zu vermeiden. Es handelt sich um eine inoffizielle, Open-Source-Implementierung für den persönlichen Gebrauch.
+<h3>Professional Web Application for Complete Control of Yamaha RX-V577 AV Receivers</h3>
+
+<p>
+  <strong>A modern, feature-rich web interface with advanced controls and dark theme support</strong>
+</p>
 
 ![Yamaha Control Interface](public/assets/yahama-mockup-1.png)
 
 ![Yamaha Control Interface - Extended Features](public/assets/yamaha-mockup-2.png)
 
-## Features
+</div>
 
-### 📱 **Navigation & Interface**
-- **2 Main Tabs**: Grundsteuerung (Basic), System Info
-- **Multi-Zone Control**: Hauptzone und Zone 2 mit separaten Einstellungen
-- **Optimierte Anordnung**: Audio Enhancement direkt in der Grundsteuerung
-- **Dual Theme Support**: Dark Theme (Standard) und Light Theme mit einem Klick umschaltbar
-- **Theme Toggle**: 🌙/☀️ Button zum einfachen Wechseln zwischen Dark/Light Mode
-- **Responsive Design**: Optimiert für Desktop, Tablet und Mobile
-- **PWA-Ready**: Progressive Web App mit Offline-Funktionalität und korrekten App-Icons
-- **German Localization**: Vollständig deutsche Benutzeroberfläche
-- **📲 Installierbar**: Als App auf Smartphone-Homescreen mit korrekten Favicons
+---
 
-### 🔊 **Audio-Steuerung**
-- **Power Control**: Ein/Aus mit visuellem Status-Indikator
-- **Volume Control**: -80 dB bis -20 dB (erweitert bis +16 dB)
-- **Volume Buttons**: Feineinstellung mit +/- Tasten
-- **Mute Toggle**: Audio stumm/laut mit visueller Rückmeldung
-- **Extended Volume Mode**: Freischaltung des vollen Lautstärkebereichs
+## 💖 Support This Project
 
-### 📺 **Quellenauswahl**
-- **HDMI Inputs**: HDMI 1, 2, 3, 4
-- **Analog Inputs**: AV 1, AV 2
-- **Digital Sources**: AirPlay, Server
-- **Active Source Display**: Visuelle Anzeige der aktiven Quelle
+<div align="center">
 
-### 🎵 **DSP & Surround Sound**
-- **15 DSP Programme**:
-  - Straight (Ohne DSP), Surround Decoder
-  - Movie, Music, Game
-  - Concert Hall, Jazz Club, Rock Concert
-  - Stadium, Church, Chamber
-  - Drama, Action Game, RPG, Sports
-- **Dialogue Level**: Sprachverständlichkeit (-6 bis +6 dB)
-- **Live DSP Display**: Anzeige des aktiven Modus
+If you find this project useful, consider supporting its development:
 
-### 🎛️ **7-Band Equalizer**
-- **Frequenzbänder**: 63Hz, 160Hz, 400Hz, 1kHz, 2.5kHz, 6.3kHz, 16kHz
-- **Einstellbereich**: -6 bis +6 dB pro Band
-- **EQ Reset**: Ein-Klick Zurücksetzen auf neutralen Klang
-- **Live Preview**: Sofortige Anzeige der Einstellungen
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/pepperonas)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/pepperonas)
+[![GitHub Sponsors](https://img.shields.io/badge/GitHub_Sponsors-EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=white)](https://github.com/sponsors/pepperonas)
+[![Patreon](https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/pepperonas)
 
-### 🔧 **Erweiterte Audio-Features**
-- **Extra Bass**: Verstärkte Basswidergabe
-- **Bass/Treble Control**: -6 bis +6 dB Einstellung
-- **Compressed Music Enhancer**: Verbesserung komprimierter Audiodateien
-- **Pure Direct Mode**: Umgehung der Tonschaltungen
-- **Straight Mode**: Direkte Signalverarbeitung
-- **Virtual Presence Speaker (VPS)**: Virtueller Surround-Effekt
+<sub>Your support helps maintain and improve this project. Every contribution, no matter how small, is greatly appreciated! ❤️</sub>
 
-### 🏠 **Lautsprecher-Konfiguration** (YPAO-gesteuert, Anzeige-only)
-- **Subwoofer Level**: Aktuelle YPAO-Einstellung
-- **Center Speaker Level**: Center-Lautsprecher Pegel
-- **Surround Level**: Surround-Lautsprecher Pegel
-- **Dynamic Range Control (DRC)**: Status-Anzeige
-- **Lip Sync Delay**: Audio-Verzögerung (YPAO-optimiert)
+</div>
 
-### 🎬 **Szenen-Steuerung**
-- **4 Szenen-Presets**: Schnellzugriff auf gespeicherte Konfigurationen
-- **Scene Activation**: Ein-Klick Szenen-Wechsel
-- **Custom Configurations**: Persönliche Einstellungen speichern
+---
 
-### 📱 **HDMI-Einstellungen**
-- **Audio Format**: PCM, DTS, Dolby Digital, Bitstream
-- **HDMI Control**: Ein/Aus für HDMI-CEC Steuerung
+## 📋 Table of Contents
 
-### ⏰ **Sleep Timer**
-- **Timer-Optionen**: Aus, 30, 60, 90, 120 Minuten
-- **Automatisches Ausschalten**: Programmierbare Abschaltung
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Technical Details](#-technical-details)
+- [API Documentation](#-api-documentation)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-### 🎯 **Quick Setup Presets**
-- **Movie Mode**: Optimiert für Kinoerlebnis
-- **Music Mode**: Verbessert für Musikwiedergabe
-- **Gaming Mode**: Angepasst für Gaming-Audio
-- **Preset Save/Load**: Benutzerdefinierte Konfigurationen
+## ✨ Features
 
-### 📊 **System-Informationen**
-- **Firmware Version**: Aktuelle System-Firmware
-- **Gerätetemperatur**: Interne Temperaturüberwachung
-- **Signal Format**: Aktuelle Signalinformationen
-- **Kanal-Konfiguration**: Aktive Kanal-Anzeige
-- **Netzwerk-Details**: IP, MAC, Gateway, Signalstärke
+### 📱 Navigation & Interface
+- **Multi-Tab Interface**: Basic controls, extended features, and system information
+- **Multi-Zone Control**: Independent control for Main Zone and Zone 2
+- **Dual Theme Support**: Dark theme (default) and light theme with one-click toggle
+- **Progressive Web App**: Installable on mobile devices with offline functionality
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Real-time Updates**: Status polling every 5 seconds for live updates
 
-### 🌐 **Verbindungsmanagement**
-- **IP-Konfiguration**: Manuelle Receiver-IP Einstellung
-- **Connection Status**: Echtzeit-Verbindungsüberwachung
-- **Auto-Connect**: Automatische Wiederverbindung beim Start
-- **Connection Panel Toggle**: Einklappbare Verbindungssteuerung
-- **Real-Time Polling**: 5-Sekunden Status-Updates
-- **Smart Error Handling**: Verbesserte Fehlermeldungen bei Verbindungsproblemen
+### 🔊 Audio Control
+- **Volume Management**: -80 dB to +16 dB range with fine adjustment buttons
+- **Power Control**: On/Off with visual status indicators
+- **Mute Toggle**: Quick audio muting with visual feedback
+- **Extended Volume Mode**: Unlock full volume range capabilities
 
-## Installation & Setup
+### 📺 Input Selection
+- **HDMI Inputs**: HDMI 1-4 support
+- **Analog Inputs**: AV 1-2 channels
+- **Digital Sources**: AirPlay, Server, USB, Tuner
+- **Active Source Display**: Visual highlighting of current input
 
-### Automatische Installation mit PM2 (Empfohlen)
+### 🎵 DSP & Surround Sound
+- **15 DSP Programs**: Including Straight, Surround Decoder, Movie, Music, Game modes
+- **Environment Simulations**: Concert Hall, Jazz Club, Rock Concert, Stadium, Church
+- **Gaming Modes**: Action Game, RPG, Sports optimizations
+- **Dialogue Enhancement**: -6 to +6 dB adjustment for voice clarity
+
+### 🎛️ Advanced Audio Features
+- **7-Band Equalizer**: 63Hz, 160Hz, 400Hz, 1kHz, 2.5kHz, 6.3kHz, 16kHz
+- **Bass/Treble Control**: -6 to +6 dB adjustment
+- **Extra Bass**: Enhanced bass reproduction
+- **Compressed Music Enhancer**: Improve compressed audio quality
+- **Pure Direct Mode**: Bypass tone circuits for purest sound
+- **Virtual Presence Speaker**: Virtual surround effect
+
+### 🏠 Speaker Configuration
+- **YPAO Integration**: Display YPAO-calibrated settings
+- **Subwoofer Level**: Current YPAO settings display
+- **Center/Surround Levels**: Individual speaker level monitoring
+- **Dynamic Range Control**: DRC status display
+- **Lip Sync Delay**: YPAO-optimized audio delay
+
+### 🎬 Scene Control
+- **4 Scene Presets**: Quick access to saved configurations
+- **One-Click Activation**: Instant scene switching
+- **Custom Configurations**: Save personal settings
+
+### 📊 System Information
+- **Firmware Version**: Current system firmware display
+- **Temperature Monitoring**: Internal temperature tracking
+- **Signal Format**: Active signal information
+- **Channel Configuration**: Active channel display
+- **Network Details**: IP, MAC, Gateway, signal strength
+
+## 🚀 Quick Start
 
 ```bash
-# Repository klonen
+# Clone the repository
 git clone https://github.com/pepperonas/yahama-controller.git
-cd yamaha-controller
+cd yahama-controller
 
-# Dependencies installieren
+# Install dependencies
 npm install
 
-# PM2 Process starten
-pm2 start server.js --name yamaha-controller
+# Start the server
+npm start
 
-# PM2 Auto-Start aktivieren
-pm2 startup
-pm2 save
+# Access the application
+# Browser: http://localhost:5001
+# Network: http://[YOUR-IP]:5001
 ```
 
-### Manuelle Installation
+## 📦 Installation
 
-1. **Dependencies installieren**:
-   ```bash
-   npm install
-   ```
+### Prerequisites
+- Node.js 18.x or higher
+- npm or yarn package manager
+- Network access to your Yamaha receiver
 
-2. **Server starten**:
-   ```bash
-   npm start
-   ```
+### Production Deployment with PM2
 
-3. **Anwendung öffnen**:
-   - Browser: `http://yamaha.pi.local` oder `http://localhost:5001`
-   - Netzwerk: `http://[RaspberryPI-IP]:5001`
+```bash
+# Install PM2 globally
+npm install pm2 -g
 
-4. **Receiver IP-Adresse finden**:
-   - Router Admin-Panel für verbundene Geräte überprüfen
-   - Nach "Yamaha" oder "RX-V577" in der Geräteliste suchen
-   - Oder das Netzwerk-Menü des Receivers für die IP-Anzeige nutzen
+# Start the application
+pm2 start server.js --name yamaha-controller
 
-5. **Mit Receiver verbinden**:
-   - Receiver IP-Adresse im Verbindungspanel eingeben
-   - "Verbinden" klicken um die Verbindung herzustellen
-   - Die IP-Adresse wird in `receiver-config.json` für zukünftige Nutzung gespeichert
+# Enable auto-start on system boot
+pm2 startup
+pm2 save
 
-### Alternative: Direkter Browser-Zugriff (Mögliche CORS-Probleme)
+# View logs
+pm2 logs yamaha-controller
+```
 
-1. **Direkter Zugriff**:
-   - `index.html` im Webbrowser öffnen
-   - Keine Installation erforderlich, aber möglicherweise CORS-Einschränkungen
+### Docker Deployment
 
-2. **Bei CORS-Problemen**:
-   - Node.js Server-Methode verwenden (empfohlen)
-   - Oder lokalen Webserver starten: `python -m http.server 8000`
+```dockerfile
+# Dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+EXPOSE 5001
+CMD ["node", "server.js"]
+```
 
-## Projektstruktur
+```bash
+# Build and run
+docker build -t yamaha-controller .
+docker run -d -p 5001:5001 --name yamaha-ctrl yamaha-controller
+```
+
+## 🎮 Usage
+
+### Initial Setup
+
+1. **Find Your Receiver's IP Address**:
+   - Check your router's admin panel for connected devices
+   - Look for "Yamaha" or "RX-V577" in the device list
+   - Or use the receiver's network menu to display IP
+
+2. **Connect to Receiver**:
+   - Enter the receiver's IP address in the connection panel
+   - Click "Connect" to establish connection
+   - IP address is saved for future sessions
+
+### Basic Operations
+
+#### Power Control
+- Click the round power button to toggle on/off
+- Status indicator shows current state (On/Standby)
+
+#### Volume Control
+- Use the volume slider for adjustment (-80 dB to +16 dB)
+- Click +/- buttons for precise changes
+- Toggle mute for quick silence
+
+#### Input Selection
+- Click any input button to switch sources
+- Active source is highlighted in blue
+- Supports HDMI, AV, Audio, AirPlay, Server, USB, and Tuner inputs
+
+#### Zone Control
+- Switch between Main Zone and Zone 2 using tabs
+- Each zone has independent controls
+
+#### Scene Selection
+- Click Scene 1-4 buttons to activate preconfigured settings
+- Scenes combine input selection and DSP settings
+
+## 🔧 Technical Details
+
+### Architecture
 
 ```
 yamaha-controller/
-├── public/                 # Statische Assets
-│   ├── assets/            # Bilder und andere Assets
-│   │   ├── yahama-mockup-1.png    # Mockup-Bild 1
-│   │   └── yamaha-mockup-2.png    # Mockup-Bild 2
-│   ├── favicon.ico        # Website Icon
-│   ├── favicon-16x16.png  # 16x16 Favicon
-│   ├── favicon-32x32.png  # 32x32 Favicon
-│   ├── apple-touch-icon.png       # iOS App Icon
-│   ├── android-chrome-192x192.png # Android App Icon (192x192)
-│   └── android-chrome-512x512.png # Android App Icon (512x512)
-├── index.html              # Haupt-Interface mit Advanced Controls
-├── server.js               # Express.js Server mit CORS Proxy
-├── package.json            # Node.js Dependencies
-├── receiver-config.json    # Gespeicherte Receiver-IP-Adresse (gitignore)
-├── deploy-raspi.sh         # Deployment-Script für Raspberry Pi
-├── .gitignore             # Git Ignore-Regeln
-└── README.md              # Diese Dokumentation
+├── public/                 # Static assets
+│   ├── assets/            # Images and mockups
+│   ├── icons/             # App icons and favicons
+│   ├── manifest.json      # PWA manifest
+│   └── service-worker.js  # Offline functionality
+├── src/                   # Source code (if restructured)
+├── index.html             # Main interface
+├── server.js              # Express.js server
+├── package.json           # Dependencies
+├── receiver-config.json   # Saved configuration
+└── README.md             # Documentation
 ```
 
-## Technische Spezifikationen
+### Technology Stack
 
-- **Server**: Node.js mit Express.js
-- **Dependencies**: Express, CORS, HTTP-Proxy-Middleware
-- **Port**: 5001 (Standard)
-- **Netzwerk**: Läuft auf 0.0.0.0 für Netzwerkzugriff
-- **Process Manager**: PM2 für Produktionsumgebung
-- **Interface**: Single Page Application mit Dark Theme
-- **Config**: Automatische IP-Speicherung in JSON-Datei
-- **Health Check**: `/api/health` Endpoint für System-Monitoring
-- **Status Polling**: Automatische Receiver-Status-Updates alle 5 Sekunden
-- **Subdomain-Zugriff**: ✅ Verfügbar über http://yamaha.pi.local (nginx Reverse Proxy)
+- **Backend**: Node.js with Express.js
+- **Frontend**: Vanilla JavaScript with modern ES6+
+- **Communication**: XML-based Yamaha protocol over HTTP
+- **Process Manager**: PM2 for production
+- **Styling**: CSS3 with CSS Variables for theming
 
-## Verwendung
+### Network Requirements
 
-### Erste Verbindung
-1. Receiver IP-Adresse eingeben (z.B. `192.168.1.100`)
-2. "Verbinden" klicken - der Status-Indikator zeigt "Verbunden" bei Erfolg
-3. Steuerelemente erscheinen nach erfolgreicher Verbindung
+- Receiver and controller must be on the same network
+- HTTP requests to receiver IP on port 80
+- No authentication required for local network access
+- CORS handled by Express proxy server
 
-### Stromversorgung
-- Den runden Power-Button zum Ein-/Ausschalten klicken
-- Status zeigt aktuellen Zustand (Ein/Standby)
+## 📚 API Documentation
 
-### Lautstärke-Steuerung
-- Lautstärke-Regler für Pegelanpassung verwenden (-80 dB bis +16 dB)
-- +/- Buttons für präzise Einstellungen
-- "Stummschaltung" zum Umschalten des Stummzustands
+### XML Command Structure
 
-### Quellenauswahl
-- Beliebige Eingangstaste klicken um Quelle zu wechseln
-- Aktive Quelle ist blau hervorgehoben
-- Unterstützt HDMI, AV, Audio, AirPlay, Server, USB und Tuner-Eingänge
-
-### Zonen-Steuerung
-- Zwischen Hauptzone und Zone 2 mit den Tabs wechseln
-- Jede Zone hat unabhängige Steuerung
-
-### Szenen-Auswahl
-- Szene 1-4 Buttons klicken um vorkonfigurierte Einstellungen zu aktivieren
-- Szenen kombinieren Quellenauswahl und DSP-Einstellungen
-
-## Unterstützte Receiver
-
-Diese Anwendung ist für den Yamaha RX-V577 entwickelt, sollte aber auch mit anderen Yamaha-Receivern funktionieren, die das XML-Steuerungsprotokoll unterstützen:
-
-- RX-V Serie (RX-V473, RX-V573, RX-V673, RX-V773)
-- HTR Serie mit Netzwerkfähigkeit
-- Andere netzwerkfähige Yamaha AV-Receiver
-
-## Technische Details
-
-### XML-Befehle
-Die Anwendung verwendet Yamahas XML-Steuerungsprotokoll über HTTP POST-Anfragen an `/YamahaRemoteControl/ctrl`.
-
-Beispiel-Befehle:
 ```xml
-<!-- Power On -->
-<YAMAHA_AV cmd="PUT"><Main_Zone><Power_Control><Power>On</Power></Power_Control></Main_Zone></YAMAHA_AV>
+<!-- Power Control -->
+<YAMAHA_AV cmd="PUT">
+  <Main_Zone>
+    <Power_Control>
+      <Power>On</Power>
+    </Power_Control>
+  </Main_Zone>
+</YAMAHA_AV>
 
-<!-- Volume Set -->
-<YAMAHA_AV cmd="PUT"><Main_Zone><Volume><Lvl><Val>-200</Val><Exp>1</Exp><Unit>dB</Unit></Lvl></Volume></Main_Zone></YAMAHA_AV>
+<!-- Volume Adjustment -->
+<YAMAHA_AV cmd="PUT">
+  <Main_Zone>
+    <Volume>
+      <Lvl>
+        <Val>-200</Val>
+        <Exp>1</Exp>
+        <Unit>dB</Unit>
+      </Lvl>
+    </Volume>
+  </Main_Zone>
+</YAMAHA_AV>
 
-<!-- Input Select -->
-<YAMAHA_AV cmd="PUT"><Main_Zone><Input><Input_Sel>HDMI1</Input_Sel></Input></Main_Zone></YAMAHA_AV>
+<!-- Input Selection -->
+<YAMAHA_AV cmd="PUT">
+  <Main_Zone>
+    <Input>
+      <Input_Sel>HDMI1</Input_Sel>
+    </Input>
+  </Main_Zone>
+</YAMAHA_AV>
 
-<!-- Get Status -->
-<YAMAHA_AV cmd="GET"><Main_Zone><Basic_Status>GetParam</Basic_Status></Main_Zone></YAMAHA_AV>
+<!-- Status Query -->
+<YAMAHA_AV cmd="GET">
+  <Main_Zone>
+    <Basic_Status>GetParam</Basic_Status>
+  </Main_Zone>
+</YAMAHA_AV>
 ```
 
-### Netzwerk-Anforderungen
-- Receiver und steuerndes Gerät müssen im selben Netzwerk sein
-- HTTP-Anfragen an Receiver IP-Adresse auf Port 80
-- Keine Authentifizierung für lokalen Netzwerkzugriff erforderlich
+### Server Endpoints
 
-## Changelog
+- `GET /` - Serve main application
+- `GET /api/health` - Health check endpoint
+- `POST /api/receiver/*` - Proxy to receiver
+- `GET /api/receiver-ip` - Get saved IP
+- `POST /api/receiver-ip` - Save receiver IP
 
-### Version 1.2.1 (September 2025)
-- 🔧 **Power Toggle Bugfix** - Entfernung der veralteten `checkIfLocked()` Aufrufe behoben
-- ✅ **Erhöhte Stabilität** - Power-Button funktioniert jetzt fehlerfrei ohne JavaScript-Fehler
+## 🐛 Troubleshooting
 
-### Version 1.2.0 (August 2025)
-- ✅ **Unlock-Mechanismus komplett entfernt** - App funktioniert ohne Authentifizierung
-- ✅ **UI-Optimierung** - Audio Enhancement als zweite Sektion in Grundsteuerung verschoben
-- ✅ **Auto-Connect aktiviert** - Automatische Verbindung beim Laden mit gespeicherter IP
-- ✅ **Volume Buttons Fix** - +/- Lautstärke-Buttons funktionieren jetzt korrekt
-- ✅ **Enhanced Error Handling** - Detaillierte Fehlermeldungen und Null-Pointer-Schutz
-- ✅ **Verbesserte Stabilität** - Robuste Verbindungslogik mit Fehlerbehandlung
-- ✅ **Zuverlässigkeit** - Alle Steuerungsfunktionen direkt ohne Sperren verfügbar
+### Connection Issues
 
-### Version 1.1.0 (Juli 2025)
-- ✅ PWA-Funktionalität mit korrekten App-Icons
-- ✅ Dual Theme Support (Dark/Light Mode)
-- ✅ Responsive Design-Verbesserungen
-- ✅ Erweiterte Audio-Funktionen
+**Problem**: "Connection failed" error
+- Verify receiver IP address is correct
+- Ensure receiver is powered on and network-connected
+- Check firewall settings aren't blocking connections
 
-## Problembehandlung
+**Problem**: Cannot power on via network
+- RX-V577 may not respond to network commands in standby over Wi-Fi
+- Use Ethernet connection for reliable network wake
+- Physical power button or IR remote may be needed for initial power-on
 
-### Verbindungsprobleme
-- **"Verbindung fehlgeschlagen"**: IP-Adresse auf Korrektheit überprüfen
-- **"Netzwerkfehler..."**: 
-  - IP-Adresse des Receivers überprüfen
-  - Sicherstellen, dass Receiver eingeschaltet und im Netzwerk erreichbar ist
-  - Bei persistenten Fehlern: Receiver neu starten und erneut versuchen
+### Status Not Updating
 
-### Einschaltprobleme
-- **Einschalten funktioniert nicht**: 
-  - RX-V577 reagiert möglicherweise nicht auf Netzwerkbefehle im Standby über Wi-Fi
-  - Ethernet-Verbindung für zuverlässigeres Einschalten verwenden
-  - Physischer Power-Button oder IR-Fernbedienung für erstes Einschalten nötig
+- Check network connectivity
+- Verify receiver is powered on
+- Status polling occurs every 5 seconds automatically
+- Check browser console for error messages
 
-### Status wird nicht aktualisiert
-- Netzwerkverbindung überprüfen
-- Sicherstellen, dass Receiver eingeschaltet ist
-- Status-Polling erfolgt automatisch alle 5 Sekunden
+### CORS Errors
 
-## CORS und Sicherheit
-
-Aufgrund von Browser-Sicherheitsbeschränkungen können CORS (Cross-Origin Resource Sharing) Probleme bei Anfragen an den Receiver auftreten. Lösungen:
-
-1. **Lokalen Webserver verwenden**:
-   ```bash
-   # Python 3
-   python -m http.server 8000
-   
-   # Node.js
-   npx http-server
-   ```
-
-2. **Browser-Flags** (nur zum Testen):
-   - Chrome: `--disable-web-security --user-data-dir=/tmp/chrome_dev`
-   - Nicht für reguläre Nutzung empfohlen
-
-3. **Proxy-Setup**: Lokalen Proxy konfigurieren um Anfragen an Receiver weiterzuleiten
-
-## Browser-Kompatibilität
-
-- Chrome/Chromium: Beste Kompatibilität
-- Firefox: Gute Kompatibilität
-- Safari: Eingeschränkt durch strengere CORS-Richtlinien
-- Edge: Gute Kompatibilität
-
-## PM2 Verwaltung
+If accessing directly via file:// protocol:
 
 ```bash
-# Status anzeigen
-pm2 status
+# Option 1: Use the Node.js server (recommended)
+npm start
 
-# Service starten (falls nicht laufend)
-pm2 start server.js --name yamaha-controller
+# Option 2: Python HTTP server
+python -m http.server 8000
 
-# Logs anzeigen
-pm2 logs yamaha-controller
-
-# Neustart
-pm2 restart yamaha-controller
-
-# Stoppen
-pm2 stop yamaha-controller
-
-# Entfernen
-pm2 delete yamaha-controller
-
-# Auto-Start konfigurieren
-pm2 startup
-pm2 save
+# Option 3: Browser with disabled security (testing only)
+chrome --disable-web-security --user-data-dir=/tmp/chrome_dev
 ```
 
-## Raspberry Pi Bereitstellung
+## 🤝 Contributing
 
-Das Projekt läuft optimal auf einem Raspberry Pi als dedizierter RX-V577 Controller:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. **Raspberry Pi OS** mit Node.js und PM2
-2. **Netzwerkzugriff** über lokale IP-Adresse
-3. **Auto-Start** beim Systemstart durch PM2
-4. **Log-Management** durch PM2 integriert
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Lizenz
+### Development Setup
 
-Martin Pfeffer 2025 Berlin, Lizenz MIT
+```bash
+# Install development dependencies
+npm install --save-dev
 
-Yamaha und RX-V577 sind Markenzeichen der Yamaha Corporation.
+# Run with auto-reload
+npm run dev
+
+# Run tests (if available)
+npm test
+
+# Lint code
+npm run lint
+```
+
+## 📄 License
+
+MIT License - Copyright (c) 2025 Martin Pfeffer
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Yamaha and RX-V577 are trademarks of Yamaha Corporation. This is an unofficial, open-source implementation for personal use.
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ in Berlin</sub>
+</div>

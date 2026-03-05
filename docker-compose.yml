@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  yamaha-controller:
+    build: .
+    container_name: yamaha-ctrl
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./receiver-config.json:/usr/src/app/receiver-config.json
+      - ./logs:/usr/src/app/logs
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=5001
+    networks:
+      - yamaha-net
+
+networks:
+  yamaha-net:
+    driver: bridge

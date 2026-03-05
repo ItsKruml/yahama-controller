@@ -8,7 +8,7 @@ function getYamahaUrl(path) {
         return `/YamahaExtendedControl/${path}`;
     } else {
         // Direkte Verbindung
-        return `http://192.168.2.78/YamahaExtendedControl/${path}`;
+        return `http://192.168.178.31/YamahaExtendedControl/${path}`;
     }
 }
 
