@@ -49,6 +49,8 @@ If you find this project useful, consider supporting its development:
 </div>
 
 ---
+> [!IMPORTANT]
+> This fork is beginning work on making it more cross-compatible with more Yamaha AV reccievers, Only tested with RX-V475
 
 ## 📋 Table of Contents
 
