@@ -377,5 +377,5 @@ Yamaha and RX-V577 are trademarks of Yamaha Corporation. This is an unofficial, 
 ---
 
 <div align="center">
-  <sub>Built with ❤️ in Berlin</sub>
+  <sub>Built with ❤️ in Berlin, forked in switzerland for organically written updates</sub>
 </div>
