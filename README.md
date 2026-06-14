@@ -50,7 +50,7 @@ If you find this project useful, consider supporting its development:
 
 ---
 > [!IMPORTANT]
-> This fork is beginning work on making it more cross-compatible with more Yamaha AV reccievers, Only tested with RX-V475
+> This fork is beginning work on making it more cross-compatible with more Yamaha AV reccievers, Only tested with RX-V475 so far but should be cross compatible.
 
 ## 📋 Table of Contents
 
